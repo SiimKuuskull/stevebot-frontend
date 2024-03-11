@@ -13,16 +13,19 @@ export default function PlayerStats() {
                 'Content-Type': 'application/json',
             },
         });
-        const w = await response.json();
-        console.log(w);
-        setPlayerStats(w);
+        const playerStats = await response.json();
+        console.log(playerStats);
+        setPlayerStats(playerStats);
     }
+    const playerSoloWins: number = playerStats[0].wins;
+    const playerSoloLosses: number = playerStats[0].losses;
+    const playerWinRate = Math.round((playerSoloWins / (playerSoloWins + playerSoloLosses)) * 100);
     return (
         <Row gutter={16}>
             <Col span={12}>
-                <Statistic title="Rank" value={'Platinum II'} />
-                <Statistic title="Win rate %" value={'44%'} />
-                <Statistic title="W / L" value={'8/6'} />
+                <Statistic title="Rank" value={`${playerStats[0].tier} ${playerStats[0].rank}`} />
+                <Statistic title="Win rate %" value={`${playerWinRate}%`} />
+                <Statistic title="W / L" value={`${playerStats[0].wins}/${playerStats[0].losses}`} />
             </Col>
         </Row>
     );
