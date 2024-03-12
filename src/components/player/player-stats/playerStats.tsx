@@ -1,31 +1,47 @@
 import { Col, Row, Statistic } from 'antd';
 import { useEffect, useState } from 'react';
 
+interface PlayerStatsType {
+    tier: string;
+    rank: string;
+    wins: number;
+    losses: number;
+}
+
 export default function PlayerStats() {
-    const [playerStats, setPlayerStats] = useState();
+    const [playerStats, setPlayerStats] = useState<PlayerStatsType[]>([]);
+
     useEffect(() => {
         getPlayerStats();
     }, []);
+
     async function getPlayerStats() {
-        const response = await fetch('http://172.22.31.60:3000/player/player-stats', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const playerStats = await response.json();
-        console.log(playerStats);
-        setPlayerStats(playerStats);
+        try {
+            const response = await fetch('http://172.22.31.60:3000/player/player-stats', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const playerStatsData: PlayerStatsType[] = await response.json();
+            console.log(playerStatsData);
+            setPlayerStats(playerStatsData);
+        } catch (error) {
+            console.error('Error fetching player stats:', error);
+        }
     }
-    const playerSoloWins: number = playerStats[0].wins;
-    const playerSoloLosses: number = playerStats[0].losses;
+
+    const playerStatsToShow = playerStats[0] || { tier: '', rank: '', wins: 0, losses: 0 };
+    const playerSoloWins: number = playerStatsToShow.wins;
+    const playerSoloLosses: number = playerStatsToShow.losses;
     const playerWinRate = Math.round((playerSoloWins / (playerSoloWins + playerSoloLosses)) * 100);
+
     return (
         <Row gutter={16}>
             <Col span={12}>
-                <Statistic title="Rank" value={`${playerStats[0].tier} ${playerStats[0].rank}`} />
+                <Statistic title="Rank" value={`${playerStatsToShow.tier} ${playerStatsToShow.rank}`} />
                 <Statistic title="Win rate %" value={`${playerWinRate}%`} />
-                <Statistic title="W / L" value={`${playerStats[0].wins}/${playerStats[0].losses}`} />
+                <Statistic title="W / L" value={`${playerSoloWins}/${playerSoloLosses}`} />
             </Col>
         </Row>
     );
