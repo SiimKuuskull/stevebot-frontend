@@ -1,8 +1,8 @@
 import { Col, Divider, Row } from 'antd';
 import BotStatus from './bot-status/BotStatus';
 import OngoingBets from './ongoing-bets/OngoingBets';
-import Activity from './activity/Activity';
 import BetsToday from './bets-today/BetsToday';
+import PlayerStatus from './player-status/playerStatus';
 
 export default function Overview() {
     return (
@@ -13,7 +13,7 @@ export default function Overview() {
                     <BotStatus></BotStatus>
                 </Col>
                 <Col span={6}>
-                    <Activity></Activity>
+                    <PlayerStatus></PlayerStatus>
                 </Col>
                 <Col span={4}></Col>
                 <Col span={4}></Col>
