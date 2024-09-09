@@ -6,7 +6,7 @@ export default function Transactions() {
         <>
             <Divider orientation="left">Transactions</Divider>
             <Row justify="start">
-                <Col span={8}>
+                <Col span={10}>
                     <TransactionsTable></TransactionsTable>
                 </Col>
             </Row>
