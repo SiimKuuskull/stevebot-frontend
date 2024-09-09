@@ -7,10 +7,10 @@ export default function Users() {
         <>
             <Divider orientation="left">Users</Divider>
             <Row justify="start">
-                <Col span={8}>
+                <Col span={1}></Col>
+                <Col span={6}>
                     <TotalUsers></TotalUsers>
                 </Col>
-                <Col span={4}></Col>
                 <Col span={4}></Col>
                 <Col span={4}></Col>
             </Row>

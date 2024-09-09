@@ -1,7 +1,23 @@
 import { Table } from 'antd';
+import { useEffect, useState } from 'react';
 
 export default function TransactionsTable() {
-    return <Table title={() => 'Transactions'} columns={columns} dataSource={data} />;
+    const [transactions, setTransactions] = useState([]);
+    useEffect(() => {
+        getTransactions();
+    }, []);
+    async function getTransactions() {
+        const response = await fetch('http://172.22.31.60:3000/transactions/find-transactions', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const x = await response.json();
+        console.log(x);
+        setTransactions(x);
+    }
+    return <Table title={() => 'Transactions'} columns={columns} dataSource={transactions} />;
 }
 
 const columns = [
@@ -10,20 +26,20 @@ const columns = [
         dataIndex: 'id',
     },
     {
-        title: 'Name',
-        dataIndex: 'name',
+        title: 'User Id',
+        dataIndex: 'userId',
     },
     {
         title: 'Balance',
         dataIndex: 'balance',
     },
     {
-        title: 'Transaction',
-        dataIndex: 'transaction',
+        title: 'Amount',
+        dataIndex: 'amount',
     },
     {
         title: 'Type',
-        dataIndex: 'transactionType',
+        dataIndex: 'type',
     },
     {
         title: 'Transaction ID',
@@ -33,37 +49,8 @@ const columns = [
         title: 'created at',
         dataIndex: 'createdAt',
     },
-];
-
-const data = [
     {
-        key: '1',
-        id: 1357357438171388,
-        name: 'jumpermaku',
-        balance: 0,
-        transaction: 2,
-        transactionType: 2,
-        externalTransactionId: 2,
-        createdAt: '2024-02-22',
-    },
-    {
-        key: '2',
-        id: 1357357438171388,
-        name: 'Tanel',
-        balance: 0,
-        transaction: 2,
-        transactionType: 2,
-        externalTransactionId: 2,
-        createdAt: '2024-02-22',
-    },
-    {
-        key: '3',
-        id: 1357357438171388,
-        name: 'Mihkel',
-        balance: 0,
-        transaction: 2,
-        transactionType: 2,
-        externalTransactionId: 2,
-        createdAt: '2024-02-22',
+        title: 'updated at',
+        dataIndex: 'updatedAt',
     },
 ];
