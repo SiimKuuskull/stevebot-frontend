@@ -3,6 +3,7 @@ import GamesToday from './games-today/GamesToday';
 import LastSeenPlayer from './last-seen-player/lastSeenPlayer';
 import PlayerStatus from './player-status/playerStatus';
 import PlayerStats from './player-stats/playerStats';
+import GamesHistory from './games-history/GamesHistory';
 export default function player() {
     return (
         <>
@@ -23,6 +24,9 @@ export default function player() {
                 </Col>
                 <Col span={5}>
                     <PlayerStats />
+                </Col>
+                <Col span={12}>
+                    <GamesHistory></GamesHistory>
                 </Col>
 
                 <Col span={8}></Col>

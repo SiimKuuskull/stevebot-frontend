@@ -14,7 +14,7 @@ export default function PlayerStats() {
     useEffect(() => {
         getPlayerStats();
     }, []);
-
+    //TODO when player hasnt completed placements API returns empty [], getRecentMatches ja sealt filtreerida W/R kui placementid ja loogika
     async function getPlayerStats() {
         try {
             const response = await fetch('http://172.22.31.60:3000/player/player-stats', {
