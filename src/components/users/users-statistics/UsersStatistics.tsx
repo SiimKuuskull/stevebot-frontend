@@ -14,6 +14,7 @@ export default function UsersStatistics() {
             },
         });
         const x = await response.json();
+        console.log(x);
         setUserStatistics(x);
     }
     return <Table title={() => 'User Statistics'} columns={columns} dataSource={userStatistics} />;
